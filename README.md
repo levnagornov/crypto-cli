@@ -8,9 +8,18 @@
 
 ## Description
 
-TBD...
+This is an SLI program that works with the Caesar cipher.
 
-This Java console application able to encode and decode texts with some simple ciphers.
+This is one of the simplest and most famous encryption methods. Perhaps I can add the ability to work with other ciphers, but this is not certain.
+Program functionality:
+
+- Text encryption
+- Decrypting text using a key
+- Decrypting text using brute force (searching through all options)
+- Decrypting text using statistical text analysis (to be done later)
+
+The program opens a text file specified by the user and performs one of the above actions with it.
+After this, a new file with the result is created in the same directory.
 
 Created by Lev Nagornov.
 
@@ -18,7 +27,6 @@ Created by Lev Nagornov.
 
 - [Install](#install)
 - [Usage](#usage)
-- [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -27,23 +35,41 @@ Created by Lev Nagornov.
 1. Clone the repository using:
 
     ```
-    git clone TBD
+    git clone git@github.com:levnagornov/crypto-cli.git
     ```
 
-2. Download and install:
-    * Java
-    * TBD...
+2. Install Java if needed:
+   ```
+   sudo apt update
+   sudo apt install default-jdk
+   java -version
+    ```
+   
+3. Download and install [Maven](https://maven.apache.org/download.cgi)
+
+4. Build the project
+   ```
+   cd crypto-cli
+   mvn package
+    ```
+   
+5. Run the app
+   ```
+   java -jar target/crypto-cli-1.0-SNAPSHOT.jar
+    ```
 
 ## Usage
 
-1. Run the file...
+1. Start the app.
+2. Select options by typing number and hit enter to confirm
+3. Provide an encrypted file
+4. Check result
 
-2. TBD...
 
+<img src="demo/crypto-cli-demo-1.png" width="512" alt="demo-1">
+<br>
+<img src="demo/crypto-cli-demo-2.png" width="512" alt="demo-1">
 
-## Maintainers
-
-TBD...
 
 ## Contributing
 
