@@ -21,7 +21,7 @@ class AlphabetTest {
         var englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var alphabetWith26Letters = new Alphabet(englishAlphabet);
         var letter = 'Z';
-        assertEquals(englishAlphabet.indexOf(letter) + 1, alphabetWith26Letters.getLetterPosition(letter));
+        assertEquals(englishAlphabet.indexOf(letter), alphabetWith26Letters.getLetterPosition(letter));
     }
 
     @Test
@@ -29,7 +29,7 @@ class AlphabetTest {
         var englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var alphabetWith26Letters = new Alphabet(englishAlphabet);
         var letter = 'j';
-        assertEquals(englishAlphabet.indexOf(Character.toUpperCase(letter)) + 1, alphabetWith26Letters.getLetterPosition(letter));
+        assertEquals(englishAlphabet.indexOf(Character.toUpperCase(letter)), alphabetWith26Letters.getLetterPosition(letter));
     }
 
     @Test
