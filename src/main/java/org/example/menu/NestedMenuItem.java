@@ -3,15 +3,27 @@ package org.example.menu;
 import org.example.util.Console;
 import java.util.List;
 
+/**
+ * The NestedMenuItem class represents a menu item that contains a submenu of other menu items.
+ */
 public class NestedMenuItem extends MenuItem {
     private boolean isActive;
     private final List<MenuItem> submenuItems;
 
+    /**
+     * Constructs a NestedMenuItem with the specified title and submenu items.
+     *
+     * @param title        The title of the menu item.
+     * @param submenuItems The list of submenu items.
+     */
     public NestedMenuItem(String title, List<MenuItem> submenuItems) {
         super(title);
         this.submenuItems = submenuItems;
     }
 
+    /**
+     * Executes the submenu associated with the menu item.
+     */
     @Override
     public void execute() {
         isActive = true;
@@ -20,10 +32,6 @@ public class NestedMenuItem extends MenuItem {
             int choice = Console.readIntUserInput();
             selectMenuItem(choice);
         }
-    }
-
-    public List<MenuItem> getSubmenuItems() {
-        return submenuItems;
     }
 
     private void printMenu() {

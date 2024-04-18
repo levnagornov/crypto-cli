@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * The MenuController class contains methods for handling menu actions.
+ */
 public class MenuController {
     public static ResultableMenuItem<String> languageSelectionMenu = new ResultableMenuItem<>("Choose language", MenuController::chooseAlphabetLanguage);
     public static ResultableMenuItem<File> getFileForEncryptionMenu = new ResultableMenuItem<>("Provide the path to the file to be encrypted:", Console::getUserFile);
@@ -16,6 +19,11 @@ public class MenuController {
     public static ResultableMenuItem<File> getFileForDecryptionMenu = new ResultableMenuItem<>("Provide the path to the encrypted file to be decrypted:", Console::getUserFile);
     public static ResultableMenuItem<Integer> getIntKeyForDecryptionMenu = new ResultableMenuItem<>("Provide key for decryption:", Console::readIntUserInput);
 
+    /**
+     * Allows the user to choose the language for encryption/decryption.
+     *
+     * @return The selected language.
+     */
     private static String chooseAlphabetLanguage() {
         int choice;
         String language;
@@ -44,6 +52,9 @@ public class MenuController {
         }
     }
 
+    /**
+     * Encrypts a file using the Caesar cipher with a specific key.
+     */
     public static void encryptCaesarByKey() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Encrypt using the Caesar cipher and a specific key",
@@ -75,6 +86,9 @@ public class MenuController {
         caesarCipher.processAndWriteToFile(encryptedFile, resultFile, true);
     }
 
+    /**
+     * Encrypts a file using the Caesar cipher with a random key.
+     */
     public static void encryptCaesarByRandomKey() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Encrypt using the Caesar cipher and a random key",
@@ -106,6 +120,9 @@ public class MenuController {
         caesarCipher.processAndWriteToFile(encryptedFile, resultFile, true);
     }
 
+    /**
+     * Decrypts a file encrypted with the Caesar cipher using a specific key.
+     */
     public static void decryptCaesarByKey() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Decrypt the Caesar cipher using a specific key",
@@ -137,6 +154,9 @@ public class MenuController {
         caesarCipher.processAndWriteToFile(encryptedFile, resultFile, false);
     }
 
+    /**
+     * Decrypts a file encrypted with the Caesar cipher using brute force.
+     */
     public static void decryptCaesarByBrutForce() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Decrypt the Caesar cipher using brut force",
@@ -164,6 +184,9 @@ public class MenuController {
         caesarCipher.brutForceAndWriteToFile(encryptedFile, resultFile);
     }
 
+    /**
+     * Decrypts a file encrypted with the Caesar cipher using frequency analysis.
+     */
     public static void decryptWithFrequencyAnalysis() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Decrypt the Caesar cipher using brut force",

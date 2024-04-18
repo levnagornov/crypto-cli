@@ -6,11 +6,22 @@ import org.example.exception.NotUniqueLettersInAlphabetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The Alphabet class represents an alphabet dictionary.
+ */
 public class Alphabet implements AlphabetDictionary {
 
     private final String alphabet;
     private final Map<Character, Integer> alphabetWithPositions;
 
+    /**
+     * Constructs an Alphabet object with the specified alphabet string.
+     *
+     * @param alphabet The string representing the alphabet.
+     * @throws NotUniqueLettersInAlphabetException If the alphabet contains duplicate letters.
+     * @throws InvalidCharacterInAlphabetException If the alphabet contains non-alphabetic characters.
+     * @throws EmptyAlphabetException              If the alphabet string is empty.
+     */
     public Alphabet(String alphabet) throws NotUniqueLettersInAlphabetException, InvalidCharacterInAlphabetException, EmptyAlphabetException {
         if (alphabet.isEmpty()) {
             throw new EmptyAlphabetException();
@@ -21,12 +32,11 @@ public class Alphabet implements AlphabetDictionary {
     }
 
     /**
-     * It creates a map of a letter and alphabet letter position.
-     * Example: if alphabet = "ABC", then alphabet with positions will be {A:0, B:1, C:2}
+     * Creates a map of letters and their positions in the alphabet.
      *
-     * @return A map of a letter and alphabet letter position.
-     * @throws InvalidCharacterInAlphabetException if alphabet contains non-alphabetic character.
-     * @throws NotUniqueLettersInAlphabetException if alphabet contains duplicates of one letter.
+     * @return A map of letters and their positions.
+     * @throws InvalidCharacterInAlphabetException If the alphabet contains non-alphabetic characters.
+     * @throws NotUniqueLettersInAlphabetException If the alphabet contains duplicate letters.
      */
     private Map<Character, Integer> createAlphabetWithPositions() throws InvalidCharacterInAlphabetException, NotUniqueLettersInAlphabetException {
         Map<Character, Integer> alphabetWithPositions = new HashMap<>();
@@ -54,7 +64,7 @@ public class Alphabet implements AlphabetDictionary {
     /**
      * Returns the length of the alphabet.
      *
-     * @return the length of the alphabet.
+     * @return The length of the alphabet.
      */
     public int getLength() {
         return alphabet.length();
@@ -62,10 +72,10 @@ public class Alphabet implements AlphabetDictionary {
 
 
     /**
-     * Returns a position of the given letter in the alphabet, or null if the letter is not there.
+     * Returns the position of the given letter in the alphabet.
      *
-     * @param letter the letter whose position is to be found.
-     * @return the position of the given letter in the alphabet, or null if the letter is not there.
+     * @param letter The letter whose position is to be found.
+     * @return The position of the given letter in the alphabet, or null if the letter is not present.
      */
     public Integer getLetterPosition(char letter) {
         return alphabetWithPositions.get(letter);
@@ -73,11 +83,11 @@ public class Alphabet implements AlphabetDictionary {
 
 
     /**
-     * Returns a letter of the alphabet by its position in it.
+     * Returns the letter of the alphabet by its position.
      *
-     * @param position the search letter position.
-     * @return the letter of the alphabet by its position in it
-     * @throws IndexOutOfBoundsException if the position argument is negative, or it exceeds the alphabet length.
+     * @param position The position of the letter in the alphabet.
+     * @return The letter of the alphabet at the specified position.
+     * @throws IndexOutOfBoundsException If the position is negative or exceeds the length of the alphabet.
      */
     public char getLetterByPosition(int position) throws IndexOutOfBoundsException {
         if (position < 0 || position > getLength()) {

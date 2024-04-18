@@ -5,14 +5,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The MainMenuItem class represents the main menu of the application.
+ */
 public class MainMenuItem extends MenuItem {
     private static boolean isActive = true;
     private static List<MenuItem> menuItems;
 
+    /**
+     * Constructs a MainMenuItem with the specified title.
+     *
+     * @param title The title of the main menu item.
+     */
     public MainMenuItem(String title) {
         super(title);
     }
 
+    /**
+     * Executes the main menu.
+     */
     public void execute() {
         initMenu();
         while (isActive) {

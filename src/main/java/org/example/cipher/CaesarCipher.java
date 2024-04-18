@@ -4,20 +4,40 @@ import org.example.alphabet.AlphabetDictionary;
 import org.example.exception.LetterIsNotInAlphabetException;
 import java.io.*;
 
+/**
+ * The CaesarCipher class represents the Caesar cipher, which is used for encrypting and decrypting text.
+ */
 public class CaesarCipher implements Encryption, Decryption {
     private final AlphabetDictionary alphabet;
     private int key;
 
+    /**
+     * Constructor for the CaesarCipher class.
+     *
+     * @param alphabet The alphabet dictionary used for encryption and decryption.
+     * @param key      The encryption/decryption key.
+     */
     public CaesarCipher(AlphabetDictionary alphabet, int key) {
         this.alphabet = alphabet;
         this.key = key;
     }
 
+    /**
+     * Constructor for the CaesarCipher class without a key (uses default value - 0).
+     *
+     * @param alphabet The alphabet dictionary used for encryption and decryption.
+     */
     public CaesarCipher(AlphabetDictionary alphabet) {
         this.alphabet = alphabet;
         this.key = 0;
     }
 
+    /**
+     * Encrypts the given text using the Caesar cipher algorithm.
+     *
+     * @param text The text to encrypt.
+     * @return The encrypted text.
+     */
     @Override
     public String encrypt(String text) {
         StringBuilder encryptedText = new StringBuilder();
@@ -31,12 +51,26 @@ public class CaesarCipher implements Encryption, Decryption {
         return encryptedText.toString();
     }
 
+    /**
+     * Decrypts the given text using the Caesar cipher algorithm.
+     *
+     * @param text The text to decrypt.
+     * @return The decrypted text.
+     */
     @Override
     public String decrypt(String text) {
         key = alphabet.getLength() - key;
         return encrypt(text);
     }
 
+    /**
+     * Processes the input file and then writes the result to the output file.
+     * Processing is either encryption or decryption of the file.
+     *
+     * @param inputFile  The input file to process.
+     * @param outputFile The output file to write the result.
+     * @param encrypt    True if encryption is needed, false for decryption.
+     */
     public void processAndWriteToFile(File inputFile, File outputFile, boolean encrypt) {
         int bufferSize = 8 * 1024; // 8Kb
 
@@ -55,6 +89,12 @@ public class CaesarCipher implements Encryption, Decryption {
         }
     }
 
+    /**
+     * Performs brute-force decryption of the input file and writes the result to the output file.
+     *
+     * @param inputFile  The input file to decrypt.
+     * @param outputFile The output file to write the decrypted content.
+     */
     public void brutForceAndWriteToFile(File inputFile, File outputFile) {
         for (int key = 1; key < alphabet.getLength(); key++) {
             this.key = key;
@@ -77,6 +117,13 @@ public class CaesarCipher implements Encryption, Decryption {
         }
     }
 
+    /**
+     * Shifts the given letter according to the encryption/decryption key.
+     *
+     * @param letter The letter to shift.
+     * @return The shifted letter.
+     * @throws LetterIsNotInAlphabetException If the letter is not found in the alphabet dictionary.
+     */
     private char shiftLetter(char letter) throws LetterIsNotInAlphabetException {
         int alphabetLength = alphabet.getLength();
         if (key == 0 || key % alphabetLength == 0) {
@@ -101,6 +148,12 @@ public class CaesarCipher implements Encryption, Decryption {
                 : Character.toLowerCase(shiftedLetter);
     }
 
+    /**
+     * Performs frequency analysis on the encrypted file and writes the result to a separate file.
+     *
+     * @param encryptedFile The file containing the encrypted text.
+     * @param resultFile    The file to write the frequency analysis result.
+     */
     public void frequencyAnalysisAndWriteToFile(File encryptedFile, File resultFile) {
         System.out.println("Not implemented yet");
     }
