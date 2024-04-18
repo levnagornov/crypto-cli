@@ -8,7 +8,7 @@
 
 ## Description
 
-This is an SLI program that works with the Caesar cipher.
+This СLI app works with the Caesar cipher.
 
 This is one of the simplest and most famous encryption methods. Perhaps I can add the ability to work with other ciphers, but this is not certain.
 Program functionality:
