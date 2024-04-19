@@ -19,7 +19,7 @@ public class CaesarCipher implements Encryption, Decryption {
      */
     public CaesarCipher(AlphabetDictionary alphabet, int key) {
         this.alphabet = alphabet;
-        this.key = key;
+        this.key = key % alphabet.getLength();
     }
 
     /**
@@ -40,6 +40,7 @@ public class CaesarCipher implements Encryption, Decryption {
      */
     @Override
     public String encrypt(String text) {
+        key = key > 0 ? key : alphabet.getLength() + key ;
         StringBuilder encryptedText = new StringBuilder();
         for (char letter : text.toCharArray()) {
             try {
@@ -59,7 +60,7 @@ public class CaesarCipher implements Encryption, Decryption {
      */
     @Override
     public String decrypt(String text) {
-        key = alphabet.getLength() - key;
+        key = key > 0 ? alphabet.getLength() - key : key * -1;
         return encrypt(text);
     }
 
