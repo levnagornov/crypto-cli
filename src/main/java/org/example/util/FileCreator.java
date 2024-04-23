@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FileProcessor {
+public class FileCreator {
     public static File createResultFile(String path, String name) {
         File resultFile = new File(path, createTextFileNameWithDateTime(name));
 
@@ -23,8 +23,8 @@ public class FileProcessor {
     }
 
     private static String createTextFileNameWithDateTime(String name) {
-        var dateFormat = new SimpleDateFormat("yyyyMMdd_HH-mm-ss"); // e.g. 20240406_16-57-47
-        var currentDateTime = dateFormat.format(new Date());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH-mm-ss"); // e.g. 20240406_16-57-47
+        String currentDateTime = dateFormat.format(new Date());
         return name + "_" + currentDateTime + ".txt";
     }
 }

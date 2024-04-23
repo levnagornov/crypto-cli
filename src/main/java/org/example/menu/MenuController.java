@@ -3,7 +3,7 @@ package org.example.menu;
 import org.example.alphabet.*;
 import org.example.cipher.CaesarCipher;
 import org.example.util.Console;
-import org.example.util.FileProcessor;
+import org.example.util.FileCreator;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,7 +79,7 @@ public class MenuController {
         int key = getIntKeyForEncryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileProcessor.createResultFile(encryptedFile.getParent(), "encryption_result");
+        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "encryption_result");
 
         // Encrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
@@ -113,7 +113,7 @@ public class MenuController {
         System.out.println("Random key will be used: " + key);
 
         // Create result file
-        File resultFile = FileProcessor.createResultFile(encryptedFile.getParent(), "encryption_with_a_random_result");
+        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "encryption_with_a_random_result");
 
         // Encrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
@@ -147,7 +147,7 @@ public class MenuController {
         int key = getIntKeyForDecryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileProcessor.createResultFile(encryptedFile.getParent(), "encryption_result");
+        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "encryption_result");
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
@@ -177,7 +177,7 @@ public class MenuController {
         File encryptedFile = getFileForDecryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileProcessor.createResultFile(encryptedFile.getParent(), "decryption_with_brut_force_result");
+        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "decryption_with_brut_force_result");
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet);
@@ -207,7 +207,7 @@ public class MenuController {
         File encryptedFile = getFileForDecryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileProcessor.createResultFile(encryptedFile.getParent(), "decryption_with_frequency_analysis_result");
+        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "decryption_with_frequency_analysis_result");
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet);
