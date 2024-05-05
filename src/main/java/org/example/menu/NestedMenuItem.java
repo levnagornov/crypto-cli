@@ -1,6 +1,6 @@
 package org.example.menu;
 
-import org.example.util.Console;
+import org.example.util.UserInputProvider;
 import java.util.List;
 
 /**
@@ -9,6 +9,7 @@ import java.util.List;
 public class NestedMenuItem extends MenuItem {
     private boolean isActive;
     private final List<MenuItem> submenuItems;
+    private final UserInputProvider inputProvider;
 
     /**
      * Constructs a NestedMenuItem with the specified title and submenu items.
@@ -16,9 +17,10 @@ public class NestedMenuItem extends MenuItem {
      * @param title        The title of the menu item.
      * @param submenuItems The list of submenu items.
      */
-    public NestedMenuItem(String title, List<MenuItem> submenuItems) {
+    public NestedMenuItem(String title, List<MenuItem> submenuItems, UserInputProvider inputProvider) {
         super(title);
         this.submenuItems = submenuItems;
+        this.inputProvider = inputProvider;
     }
 
     /**
@@ -29,7 +31,7 @@ public class NestedMenuItem extends MenuItem {
         isActive = true;
         while (isActive) {
             printMenu();
-            int choice = Console.readIntUserInput();
+            int choice = inputProvider.readIntUserInput();
             selectMenuItem(choice);
         }
     }

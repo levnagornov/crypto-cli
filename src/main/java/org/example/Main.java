@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.menu.MainMenuItem;
+import org.example.menu.MenuController;
 import org.example.util.Console;
 
 /**
@@ -8,8 +8,8 @@ import org.example.util.Console;
  */
 public class Main {
     public static void main(String[] args) {
-        MainMenuItem mainMenu = new MainMenuItem("Main menu");
-        mainMenu.execute();
-        Console.scanner.close();
+        try (Console console = new Console()) {
+            new MenuController(console).run();
+        }
     }
 }

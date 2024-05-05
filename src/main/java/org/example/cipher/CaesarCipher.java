@@ -156,6 +156,8 @@ public class CaesarCipher implements Encryption, Decryption {
      * @param resultFile    The file to write the frequency analysis result.
      */
     public void frequencyAnalysisAndWriteToFile(File encryptedFile, File resultFile) {
+        System.out.println("Received encryptedFile - " + encryptedFile);
+        System.out.println("Received resultFile - " + resultFile);
         System.out.println("Not implemented yet");
     }
 }

@@ -2,8 +2,8 @@ package org.example.menu;
 
 import org.example.alphabet.*;
 import org.example.cipher.CaesarCipher;
-import org.example.util.Console;
 import org.example.util.FileCreator;
+import org.example.util.UserInputProvider;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,49 +13,35 @@ import java.util.Random;
  * The MenuController class contains methods for handling menu actions.
  */
 public class MenuController {
-    public static ResultableMenuItem<String> languageSelectionMenu = new ResultableMenuItem<>("Choose language", MenuController::chooseAlphabetLanguage);
-    public static ResultableMenuItem<File> getFileForEncryptionMenu = new ResultableMenuItem<>("Provide the path to the file to be encrypted:", Console::getUserFile);
-    public static ResultableMenuItem<Integer> getIntKeyForEncryptionMenu = new ResultableMenuItem<>("Provide key for encryption:", Console::readIntUserInput);
-    public static ResultableMenuItem<File> getFileForDecryptionMenu = new ResultableMenuItem<>("Provide the path to the encrypted file to be decrypted:", Console::getUserFile);
-    public static ResultableMenuItem<Integer> getIntKeyForDecryptionMenu = new ResultableMenuItem<>("Provide key for decryption:", Console::readIntUserInput);
+    private final UserInputProvider inputProvider;
+    private final ResultableMenuItem<String> languageSelectionMenu;
+    private final ResultableMenuItem<File> getFileForEncryptionMenu;
+    private final ResultableMenuItem<Integer> getIntKeyForEncryptionMenu;
+    private final ResultableMenuItem<File> getFileForDecryptionMenu;
+    private final ResultableMenuItem<Integer> getIntKeyForDecryptionMenu;
+
+    public MenuController(UserInputProvider inputProvider) {
+        this.inputProvider = inputProvider;
+        languageSelectionMenu = new AlphabetLanguageSelectionMenuItem("Choose language", inputProvider::readIntUserInput);
+        getFileForEncryptionMenu = new ResultableCommandMenuItem<>("Provide the path to the file to be encrypted:", inputProvider::getUserFile);
+        getIntKeyForEncryptionMenu = new ResultableCommandMenuItem<>("Provide key for encryption:", inputProvider::readIntUserInput);
+        getFileForDecryptionMenu = new ResultableCommandMenuItem<>("Provide the path to the encrypted file to be decrypted:", inputProvider::getUserFile);
+        getIntKeyForDecryptionMenu = new ResultableCommandMenuItem<>("Provide key for decryption:", inputProvider::readIntUserInput);
+    }
 
     /**
-     * Allows the user to choose the language for encryption/decryption.
-     *
-     * @return The selected language.
+     * Runs the menu controller, allowing users to navigate through various encryption and decryption options.
+     * It initializes the main menu and starts the menu execution loop.
      */
-    private static String chooseAlphabetLanguage() {
-        int choice;
-        String language;
-
-        while (true) {
-            System.out.println("Choose the language of the encrypted file:");
-
-            for (int i = 0; i < Language.values().length; i++) {
-                System.out.println(i + 1 + ". " + Language.values()[i]);
-            }
-
-            choice = Console.readIntUserInput();
-
-            switch (Language.values()[choice - 1]) {
-                case ENGLISH -> language = "ENGLISH";
-                case RUSSIAN -> language = "RUSSIAN";
-                case GREEK -> language = "GREEK";
-                case JAPANESE -> language = "JAPANESE";
-                default -> {
-                    System.out.println("Invalid choice. Please try again.");
-                    continue;
-                }
-            }
-
-            return language;
-        }
+    public void run() {
+        MainMenuItem mainMenu = new MainMenuItem("Main menu", inputProvider, this);
+        mainMenu.execute();
     }
 
     /**
      * Encrypts a file using the Caesar cipher with a specific key.
      */
-    public static void encryptCaesarByKey() {
+    public void encryptCaesarByKey() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Encrypt using the Caesar cipher and a specific key",
                 new ArrayList<>(Arrays.asList(
@@ -79,7 +65,9 @@ public class MenuController {
         int key = getIntKeyForEncryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "encryption_result");
+        File resultFile = FileCreator.createResultFile(
+                encryptedFile.getParent(),
+                FileCreator.generateUniqueFileName("encryption_result", "txt"));
 
         // Encrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
@@ -89,7 +77,7 @@ public class MenuController {
     /**
      * Encrypts a file using the Caesar cipher with a random key.
      */
-    public static void encryptCaesarByRandomKey() {
+    public void encryptCaesarByRandomKey() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Encrypt using the Caesar cipher and a random key",
                 new ArrayList<>(Arrays.asList(
@@ -113,7 +101,9 @@ public class MenuController {
         System.out.println("Random key will be used: " + key);
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "encryption_with_a_random_result");
+        File resultFile = FileCreator.createResultFile(
+                encryptedFile.getParent(),
+                FileCreator.generateUniqueFileName("encryption_with_a_random_key_result", "txt"));
 
         // Encrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
@@ -123,7 +113,7 @@ public class MenuController {
     /**
      * Decrypts a file encrypted with the Caesar cipher using a specific key.
      */
-    public static void decryptCaesarByKey() {
+    public void decryptCaesarByKey() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Decrypt the Caesar cipher using a specific key",
                 new ArrayList<>(Arrays.asList(
@@ -147,7 +137,9 @@ public class MenuController {
         int key = getIntKeyForDecryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "encryption_result");
+        File resultFile = FileCreator.createResultFile(
+                encryptedFile.getParent(),
+                FileCreator.generateUniqueFileName("decryption_result", "txt"));
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
@@ -157,7 +149,7 @@ public class MenuController {
     /**
      * Decrypts a file encrypted with the Caesar cipher using brute force.
      */
-    public static void decryptCaesarByBrutForce() {
+    public void decryptCaesarByBrutForce() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Decrypt the Caesar cipher using brut force",
                 new ArrayList<>(Arrays.asList(
@@ -177,7 +169,9 @@ public class MenuController {
         File encryptedFile = getFileForDecryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "decryption_with_brut_force_result");
+        File resultFile = FileCreator.createResultFile(
+                encryptedFile.getParent(),
+                 FileCreator.generateUniqueFileName("decryption_with_brut_force_result", "txt"));
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet);
@@ -187,7 +181,7 @@ public class MenuController {
     /**
      * Decrypts a file encrypted with the Caesar cipher using frequency analysis.
      */
-    public static void decryptWithFrequencyAnalysis() {
+    public void decryptWithFrequencyAnalysis() {
         NestedSequentialMenuItem menus = new NestedSequentialMenuItem(
                 "Decrypt the Caesar cipher using brut force",
                 new ArrayList<>(Arrays.asList(
@@ -207,7 +201,9 @@ public class MenuController {
         File encryptedFile = getFileForDecryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(encryptedFile.getParent(), "decryption_with_frequency_analysis_result");
+        File resultFile = FileCreator.createResultFile(
+                encryptedFile.getParent(),
+                FileCreator.generateUniqueFileName("decryption_with_frequency_analysis_result", "txt"));
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet);
