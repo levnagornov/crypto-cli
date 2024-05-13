@@ -1,6 +1,6 @@
 package org.example.util;
 
-import java.io.File;
+import java.nio.file.Path;
 
 /**
  * The UserInputProvider interface provides methods for interacting with user input.
@@ -26,6 +26,6 @@ public interface UserInputProvider {
      *
      * @return File specified by the user.
      */
-    File getUserFile();
+    Path getUserFile();
 }
 
