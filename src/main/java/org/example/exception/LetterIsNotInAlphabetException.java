@@ -3,7 +3,7 @@ package org.example.exception;
 /**
  * The LetterIsNotInAlphabetException is thrown when a letter is not found in the alphabet dictionary.
  */
-public class LetterIsNotInAlphabetException extends Exception {
+public class LetterIsNotInAlphabetException extends RuntimeException {
 
     /**
      * Constructs a LetterIsNotInAlphabetException with the specified detail message.

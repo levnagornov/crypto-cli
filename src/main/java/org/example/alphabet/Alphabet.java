@@ -10,7 +10,6 @@ import java.util.Map;
  * The Alphabet class represents an alphabet dictionary.
  */
 public class Alphabet implements AlphabetDictionary {
-
     private final String alphabet;
     private final Map<Character, Integer> alphabetWithPositions;
 
@@ -22,7 +21,7 @@ public class Alphabet implements AlphabetDictionary {
      * @throws InvalidCharacterInAlphabetException If the alphabet contains non-alphabetic characters.
      * @throws EmptyAlphabetException              If the alphabet string is empty.
      */
-    public Alphabet(String alphabet) throws NotUniqueLettersInAlphabetException, InvalidCharacterInAlphabetException, EmptyAlphabetException {
+    public Alphabet(String alphabet) {
         if (alphabet.isEmpty()) {
             throw new EmptyAlphabetException();
         }
@@ -38,7 +37,7 @@ public class Alphabet implements AlphabetDictionary {
      * @throws InvalidCharacterInAlphabetException If the alphabet contains non-alphabetic characters.
      * @throws NotUniqueLettersInAlphabetException If the alphabet contains duplicate letters.
      */
-    private Map<Character, Integer> createAlphabetWithPositions() throws InvalidCharacterInAlphabetException, NotUniqueLettersInAlphabetException {
+    private Map<Character, Integer> createAlphabetWithPositions() {
         Map<Character, Integer> alphabetWithPositions = new HashMap<>();
 
         for (int i = 0; i < alphabet.length(); i++) {
@@ -60,7 +59,6 @@ public class Alphabet implements AlphabetDictionary {
         return alphabetWithPositions;
     }
 
-
     /**
      * Returns the length of the alphabet.
      *
@@ -69,7 +67,6 @@ public class Alphabet implements AlphabetDictionary {
     public int getLength() {
         return alphabet.length();
     }
-
 
     /**
      * Returns the position of the given letter in the alphabet.
@@ -81,7 +78,6 @@ public class Alphabet implements AlphabetDictionary {
         return alphabetWithPositions.get(letter);
     }
 
-
     /**
      * Returns the letter of the alphabet by its position.
      *
@@ -89,7 +85,7 @@ public class Alphabet implements AlphabetDictionary {
      * @return The letter of the alphabet at the specified position.
      * @throws IndexOutOfBoundsException If the position is negative or exceeds the length of the alphabet.
      */
-    public char getLetterByPosition(int position) throws IndexOutOfBoundsException {
+    public char getLetterByPosition(int position) {
         if (position < 0 || position > getLength()) {
             throw new IndexOutOfBoundsException("Position must be a positive integer or zero");
         }

@@ -10,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class AlphabetTest {
 
     @Test
-    void getLength() throws NotUniqueLettersInAlphabetException, EmptyAlphabetException, InvalidCharacterInAlphabetException {
+    void getLength() {
         var englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var alphabetWith26Letters = new Alphabet(englishAlphabet);
         assertEquals(englishAlphabet.length(), alphabetWith26Letters.getLength());
     }
 
     @Test
-    void getLetterPositionWithUpperCaseLetter() throws NotUniqueLettersInAlphabetException, EmptyAlphabetException, InvalidCharacterInAlphabetException {
+    void getLetterPositionWithUpperCaseLetter() {
         var englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var alphabetWith26Letters = new Alphabet(englishAlphabet);
         var letter = 'Z';
@@ -25,7 +25,7 @@ class AlphabetTest {
     }
 
     @Test
-    void getLetterPositionWithLowerCaseLetter() throws NotUniqueLettersInAlphabetException, EmptyAlphabetException, InvalidCharacterInAlphabetException {
+    void getLetterPositionWithLowerCaseLetter() {
         var englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var alphabetWith26Letters = new Alphabet(englishAlphabet);
         var letter = 'j';
@@ -33,7 +33,7 @@ class AlphabetTest {
     }
 
     @Test
-    void getLetterByPositionWithPositiveNumber() throws NotUniqueLettersInAlphabetException, EmptyAlphabetException, InvalidCharacterInAlphabetException {
+    void getLetterByPositionWithPositiveNumber() {
         var englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var alphabetWith26Letters = new Alphabet(englishAlphabet);
         var positivePosition = 10;
@@ -41,7 +41,7 @@ class AlphabetTest {
     }
 
     @Test
-    void getLetterByPositionWithNegativeNumber() throws NotUniqueLettersInAlphabetException, EmptyAlphabetException, InvalidCharacterInAlphabetException {
+    void getLetterByPositionWithNegativeNumber() {
         var englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var alphabetWith26Letters = new Alphabet(englishAlphabet);
         var negativePosition = -10;
@@ -49,7 +49,7 @@ class AlphabetTest {
     }
 
     @Test
-    void getLetterByPositionWithPositionThatExceedsTheAlphabetLength() throws NotUniqueLettersInAlphabetException, EmptyAlphabetException, InvalidCharacterInAlphabetException {
+    void getLetterByPositionWithPositionThatExceedsTheAlphabetLength() {
         var englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var alphabetWith26Letters = new Alphabet(englishAlphabet);
         var wrongPosition = 30;

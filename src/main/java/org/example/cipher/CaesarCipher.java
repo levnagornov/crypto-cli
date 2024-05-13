@@ -43,11 +43,7 @@ public class CaesarCipher implements Encryption, Decryption {
         key = key > 0 ? key : alphabet.getLength() + key ;
         StringBuilder encryptedText = new StringBuilder();
         for (char letter : text.toCharArray()) {
-            try {
-                encryptedText.append(shiftLetter(letter));
-            } catch (LetterIsNotInAlphabetException e) {
-                throw new RuntimeException(e);
-            }
+            encryptedText.append(shiftLetter(letter));
         }
         return encryptedText.toString();
     }
@@ -125,7 +121,7 @@ public class CaesarCipher implements Encryption, Decryption {
      * @return The shifted letter.
      * @throws LetterIsNotInAlphabetException If the letter is not found in the alphabet dictionary.
      */
-    private char shiftLetter(char letter) throws LetterIsNotInAlphabetException {
+    private char shiftLetter(char letter) {
         int alphabetLength = alphabet.getLength();
         if (key == 0 || key % alphabetLength == 0) {
             return letter;

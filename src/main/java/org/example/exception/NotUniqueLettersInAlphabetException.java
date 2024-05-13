@@ -3,7 +3,7 @@ package org.example.exception;
 /**
  * The NotUniqueLettersInAlphabetException is thrown when non-unique letters are found in the alphabet string.
  */
-public class NotUniqueLettersInAlphabetException extends Exception {
+public class NotUniqueLettersInAlphabetException extends RuntimeException {
 
     /**
      * Constructs a NotUniqueLettersInAlphabetException with the specified detail message.

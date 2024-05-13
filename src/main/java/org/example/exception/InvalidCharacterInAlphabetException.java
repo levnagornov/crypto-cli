@@ -3,7 +3,7 @@ package org.example.exception;
 /**
  * The InvalidCharacterInAlphabetException is thrown when an invalid character is found in the alphabet string.
  */
-public class InvalidCharacterInAlphabetException extends Exception {
+public class InvalidCharacterInAlphabetException extends RuntimeException {
 
     /**
      * Constructs an InvalidCharacterInAlphabetException with the specified detail message.

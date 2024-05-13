@@ -25,7 +25,6 @@ public interface AlphabetDictionary {
      *
      * @param position The position of the letter.
      * @return The letter at the specified position.
-     * @throws IndexOutOfBoundsException If the specified position is out of bounds.
      */
-    char getLetterByPosition(int position) throws IndexOutOfBoundsException;
+    char getLetterByPosition(int position);
 }

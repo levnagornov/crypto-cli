@@ -6,6 +6,7 @@ import java.io.File;
  * The UserInputProvider interface provides methods for interacting with user input.
  */
 public interface UserInputProvider {
+
     /**
      * Reads an integer input from the user.
      *

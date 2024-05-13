@@ -1,9 +1,5 @@
 package org.example.alphabet;
 
-import org.example.exception.EmptyAlphabetException;
-import org.example.exception.InvalidCharacterInAlphabetException;
-import org.example.exception.NotUniqueLettersInAlphabetException;
-
 /**
  * The AlphabetManager class provides methods for obtaining alphabet dictionaries for different languages.
  */
@@ -30,11 +26,7 @@ public class AlphabetManager {
      * @return The English alphabet dictionary.
      */
     private static AlphabetDictionary getEnglishAlphabet() {
-        try {
-            return new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        } catch (NotUniqueLettersInAlphabetException | EmptyAlphabetException | InvalidCharacterInAlphabetException e) {
-            throw new RuntimeException(e);
-        }
+        return new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
     }
 
     /**
@@ -43,11 +35,7 @@ public class AlphabetManager {
      * @return The Russian alphabet dictionary.
      */
     private static AlphabetDictionary getRussianAlphabet() {
-        try {
-            return new Alphabet("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ");
-        } catch (NotUniqueLettersInAlphabetException | EmptyAlphabetException | InvalidCharacterInAlphabetException e) {
-            throw new RuntimeException(e);
-        }
+        return new Alphabet("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ");
     }
 
     /**
@@ -56,11 +44,7 @@ public class AlphabetManager {
      * @return The Greek alphabet dictionary.
      */
     private static AlphabetDictionary getGreekAlphabet() {
-        try {
-            return new Alphabet("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ");
-        } catch (NotUniqueLettersInAlphabetException | EmptyAlphabetException | InvalidCharacterInAlphabetException e) {
-            throw new RuntimeException(e);
-        }
+        return new Alphabet("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ");
     }
 
     /**
@@ -69,10 +53,6 @@ public class AlphabetManager {
      * @return The Japanese alphabet dictionary.
      */
     private static AlphabetDictionary getJapaneseAlphabet() {
-        try {
-            return new Alphabet("あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん");
-        } catch (NotUniqueLettersInAlphabetException | EmptyAlphabetException | InvalidCharacterInAlphabetException e) {
-            throw new RuntimeException(e);
-        }
+        return new Alphabet("あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん");
     }
 }
