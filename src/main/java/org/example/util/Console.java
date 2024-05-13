@@ -1,6 +1,7 @@
 package org.example.util;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
@@ -17,14 +18,14 @@ public class Console implements UserInputProvider, AutoCloseable {
      *
      * @return Integer entered by the user.
      */
-    public File getUserFile() {
+    public Path getUserFile() {
         String input = readStrUserInput();
-        File userFile = new File(input);
+        Path userFile = Path.of(input);
 
-        while (!userFile.exists()) {
+        while (!Files.exists(userFile)) {
             System.out.println("This file doesn't exists, please check the path and try again.");
             input = readStrUserInput();
-            userFile = new File(input);
+            userFile = Path.of(input);
         }
 
         return userFile;

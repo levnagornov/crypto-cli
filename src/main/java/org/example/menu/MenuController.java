@@ -3,8 +3,10 @@ package org.example.menu;
 import org.example.alphabet.*;
 import org.example.cipher.CaesarCipher;
 import org.example.util.FileCreator;
+import org.example.util.FileProcessor;
+import org.example.util.Processor;
 import org.example.util.UserInputProvider;
-import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -15,9 +17,9 @@ import java.util.Random;
 public class MenuController {
     private final UserInputProvider inputProvider;
     private final ResultableMenuItem<String> languageSelectionMenu;
-    private final ResultableMenuItem<File> getFileForEncryptionMenu;
+    private final ResultableMenuItem<Path> getFileForEncryptionMenu;
     private final ResultableMenuItem<Integer> getIntKeyForEncryptionMenu;
-    private final ResultableMenuItem<File> getFileForDecryptionMenu;
+    private final ResultableMenuItem<Path> getFileForDecryptionMenu;
     private final ResultableMenuItem<Integer> getIntKeyForDecryptionMenu;
 
     public MenuController(UserInputProvider inputProvider) {
@@ -59,19 +61,20 @@ public class MenuController {
         AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
 
         // Get a file for encryption
-        File encryptedFile = getFileForEncryptionMenu.getResult();
+        Path encryptedFile = getFileForEncryptionMenu.getResult();
 
         // Get a key
         int key = getIntKeyForEncryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(
+        Path resultFile = FileCreator.createResultFile(
                 encryptedFile.getParent(),
                 FileCreator.generateUniqueFileName("encryption_result", "txt"));
 
-        // Encrypt
+        // Encrypt and process
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
-        caesarCipher.processAndWriteToFile(encryptedFile, resultFile, true);
+        Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::encrypt);
+        processor.process();
     }
 
     /**
@@ -94,20 +97,21 @@ public class MenuController {
         AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
 
         // Get a file for encryption
-        File encryptedFile = getFileForEncryptionMenu.getResult();
+        Path encryptedFile = getFileForEncryptionMenu.getResult();
 
         // Get a key
         int key = new Random().nextInt(1, alphabet.getLength());
         System.out.println("Random key will be used: " + key);
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(
+        Path resultFile = FileCreator.createResultFile(
                 encryptedFile.getParent(),
                 FileCreator.generateUniqueFileName("encryption_with_a_random_key_result", "txt"));
 
         // Encrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
-        caesarCipher.processAndWriteToFile(encryptedFile, resultFile, true);
+        Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::encrypt);
+        processor.process();
     }
 
     /**
@@ -131,19 +135,20 @@ public class MenuController {
         AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
 
         // Get an encrypted file
-        File encryptedFile = getFileForDecryptionMenu.getResult();
+        Path encryptedFile = getFileForEncryptionMenu.getResult();
 
         // Get a key
         int key = getIntKeyForDecryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(
+        Path resultFile = FileCreator.createResultFile(
                 encryptedFile.getParent(),
                 FileCreator.generateUniqueFileName("decryption_result", "txt"));
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
-        caesarCipher.processAndWriteToFile(encryptedFile, resultFile, false);
+        Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::decrypt);
+        processor.process();
     }
 
     /**
@@ -166,16 +171,17 @@ public class MenuController {
         AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
 
         // Get an encrypted file
-        File encryptedFile = getFileForDecryptionMenu.getResult();
+        Path encryptedFile = getFileForEncryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(
+        Path resultFile = FileCreator.createResultFile(
                 encryptedFile.getParent(),
                  FileCreator.generateUniqueFileName("decryption_with_brut_force_result", "txt"));
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet);
-        caesarCipher.brutForceAndWriteToFile(encryptedFile, resultFile);
+        Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::decryptWithBruteForce);
+        processor.process();
     }
 
     /**
@@ -198,15 +204,16 @@ public class MenuController {
         AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
 
         // Get an encrypted file
-        File encryptedFile = getFileForDecryptionMenu.getResult();
+        Path encryptedFile = getFileForEncryptionMenu.getResult();
 
         // Create result file
-        File resultFile = FileCreator.createResultFile(
+        Path resultFile = FileCreator.createResultFile(
                 encryptedFile.getParent(),
                 FileCreator.generateUniqueFileName("decryption_with_frequency_analysis_result", "txt"));
 
         // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet);
-        caesarCipher.frequencyAnalysisAndWriteToFile(encryptedFile, resultFile);
+        Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::decryptWithFrequencyAnalysis);
+        processor.process();
     }
 }

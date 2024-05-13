@@ -2,7 +2,6 @@ package org.example.cipher;
 
 import org.example.alphabet.AlphabetDictionary;
 import org.example.exception.LetterIsNotInAlphabetException;
-import java.io.*;
 
 /**
  * The CaesarCipher class represents the Caesar cipher, which is used for encrypting and decrypting text.
@@ -38,14 +37,8 @@ public class CaesarCipher implements Encryption, Decryption {
      * @param text The text to encrypt.
      * @return The encrypted text.
      */
-    @Override
     public String encrypt(String text) {
-        key = key > 0 ? key : alphabet.getLength() + key ;
-        StringBuilder encryptedText = new StringBuilder();
-        for (char letter : text.toCharArray()) {
-            encryptedText.append(shiftLetter(letter));
-        }
-        return encryptedText.toString();
+        return process(text, key);
     }
 
     /**
@@ -54,106 +47,79 @@ public class CaesarCipher implements Encryption, Decryption {
      * @param text The text to decrypt.
      * @return The decrypted text.
      */
-    @Override
     public String decrypt(String text) {
-        key = key > 0 ? alphabet.getLength() - key : key * -1;
-        return encrypt(text);
+        return process(text, -key);
     }
 
     /**
-     * Processes the input file and then writes the result to the output file.
-     * Processing is either encryption or decryption of the file.
+     * Performs encryption or decryption on the given text based on the provided shift value.
      *
-     * @param inputFile  The input file to process.
-     * @param outputFile The output file to write the result.
-     * @param encrypt    True if encryption is needed, false for decryption.
+     * @param text  The text to process.
+     * @param shift The shift value for encryption/decryption.
+     * @return The processed text.
      */
-    public void processAndWriteToFile(File inputFile, File outputFile, boolean encrypt) {
-        int bufferSize = 8 * 1024; // 8Kb
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile), bufferSize);
-             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))
-        ) {
-            char[] buffer = new char[bufferSize];
-
-            // Process in chunks
-            while (reader.read(buffer, 0, bufferSize) != -1) {
-                String text = new String(buffer);
-                writer.write(encrypt ? encrypt(text) : decrypt(text));
-            }
-        } catch (IOException e) {
-            System.out.println("ERROR while processing the file: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Performs brute-force decryption of the input file and writes the result to the output file.
-     *
-     * @param inputFile  The input file to decrypt.
-     * @param outputFile The output file to write the decrypted content.
-     */
-    public void brutForceAndWriteToFile(File inputFile, File outputFile) {
-        for (int key = 1; key < alphabet.getLength(); key++) {
-            this.key = key;
-            int bufferSize = 8 * 1024; // 8Kb
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(inputFile), bufferSize);
-                 BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, true))
-            ) {
-                writer.write("Decrypting with a key=" + key + ":\n");
-                char[] buffer = new char[bufferSize];
-
-                // Process in chunks
-                while (reader.read(buffer, 0, bufferSize) != -1) {
-                    String text = new String(buffer);
-                    writer.write(decrypt(text));
-                }
-            } catch (IOException e) {
-                System.out.println("ERROR while processing the file: " + e.getMessage());
+    private String process(String text, int shift) {
+        StringBuilder result = new StringBuilder();
+        for (char letter : text.toCharArray()) {
+            if (Character.isAlphabetic(letter)) {
+                char shiftedLetter = shiftLetter(letter, shift);
+                result.append(shiftedLetter);
+            } else {
+                result.append(letter);
             }
         }
+        return result.toString();
     }
 
     /**
-     * Shifts the given letter according to the encryption/decryption key.
+     * Shifts the given letter according to the provided shift value.
      *
      * @param letter The letter to shift.
+     * @param shift  The shift value for encryption/decryption.
      * @return The shifted letter.
-     * @throws LetterIsNotInAlphabetException If the letter is not found in the alphabet dictionary.
+     * @throws LetterIsNotInAlphabetException If the letter is not found in the alphabet.
      */
-    private char shiftLetter(char letter) {
+    private char shiftLetter(char letter, int shift) {
         int alphabetLength = alphabet.getLength();
-        if (key == 0 || key % alphabetLength == 0) {
-            return letter;
-        }
-
-        // Skip non-alphabetic symbols like . , ! etc.
-        if (!Character.isAlphabetic(letter)) {
-            return letter;
-        }
-
-        Integer currentIndex = alphabet.getLetterPosition(letter);
-        if (currentIndex == null) {
+        int currentPosition = alphabet.getLetterPosition(letter);
+        if (currentPosition == -1) {
             throw new LetterIsNotInAlphabetException(Character.toString(letter));
         }
-
-        int shiftedIndex = (currentIndex + key) % alphabetLength;
-        char shiftedLetter = alphabet.getLetterByPosition(shiftedIndex);
-
-        return Character.isUpperCase(letter)
-                ? Character.toUpperCase(shiftedLetter)
-                : Character.toLowerCase(shiftedLetter);
+        int shiftedPosition = (currentPosition + shift + alphabetLength) % alphabetLength;
+        return alphabet.getLetterByPosition(shiftedPosition);
     }
 
     /**
-     * Performs frequency analysis on the encrypted file and writes the result to a separate file.
+     * Decrypts the given text using the Caesar cipher algorithm with brute-force approach,
+     * trying all possible keys from 1 to alphabet length - 1.
+     * For each key, it decrypts the text and appends the result along with the key information.
      *
-     * @param encryptedFile The file containing the encrypted text.
-     * @param resultFile    The file to write the frequency analysis result.
+     * @param text The text to decrypt.
+     * @return The decrypted text for each possible key.
      */
-    public void frequencyAnalysisAndWriteToFile(File encryptedFile, File resultFile) {
-        System.out.println("Received encryptedFile - " + encryptedFile);
-        System.out.println("Received resultFile - " + resultFile);
+    public String decryptWithBruteForce(String text) {
+        StringBuilder decryptedText = new StringBuilder();
+        for (int key = 1; key < alphabet.getLength(); key++) {
+            this.key = key;
+            decryptedText.append("Decrypting with a key ")
+                    .append(key)
+                    .append(" :")
+                    .append(System.lineSeparator())
+                    .append(decrypt(text))
+                    .append(System.lineSeparator());
+        }
+        return decryptedText.toString();
+    }
+
+    /**
+     * Decrypts the given text using the Caesar cipher algorithm with frequency analysis.
+     *
+     * @param text The text to decrypt.
+     * @return The decrypted text for each possible key.
+     */
+    public String decryptWithFrequencyAnalysis(String text) {
+        System.out.println("Received text is " + text.length() + " length");
         System.out.println("Not implemented yet");
+        return text;
     }
 }

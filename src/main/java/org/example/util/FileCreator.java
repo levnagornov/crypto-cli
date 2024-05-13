@@ -1,7 +1,9 @@
 package org.example.util;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,17 +19,16 @@ public class FileCreator {
      * @param name The name of the file.
      * @return The created file.
      */
-    public static File createResultFile(String path, String name) {
-        File resultFile = new File(path, name);
+    public static Path createResultFile(Path path, String name) {
+        Path resultFile = path.resolve(name);
 
         try {
-            if (resultFile.createNewFile()) {
-                System.out.println("The result file has been created: " + resultFile.getAbsolutePath());
-            } else {
-                throw new IOException("Couldn't create the result file, the name already exists");
-            }
+            Files.createFile(resultFile);
+            System.out.println("The result file has been created: " + resultFile.toAbsolutePath());
+        } catch (FileAlreadyExistsException e) {
+            System.err.println("ERROR: Couldn't create the result file, the name already exists");
         } catch (IOException e) {
-            System.err.println("ERROR: Error occurred while creating the result file " + resultFile.getAbsolutePath() + " " + e.getMessage());
+            System.err.println("ERROR: Error occurred while creating the result file " + resultFile.toAbsolutePath() + " " + e.getMessage());
         }
 
         return resultFile;
