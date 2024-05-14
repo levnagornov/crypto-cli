@@ -55,26 +55,16 @@ public class MenuController {
         );
         menus.execute();
 
-        // Choose language
         String language = languageSelectionMenu.getResult();
-
-        // Create according alphabet
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
-
-        // Get a file for encryption
-        Path encryptedFile = getFileForEncryptionMenu.getResult();
-
-        // Get a key
+        Path userFile = getFileForEncryptionMenu.getResult();
         int key = getIntKeyForEncryptionMenu.getResult();
 
-        // Create result file
-        Path resultFile = FileCreator.createResultFile(
-                encryptedFile.getParent(),
-                FileCreator.generateUniqueFileName("encryption_result", "txt"));
+        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        String uniqueFileName = FileCreator.generateUniqueFileName("encryption_result", "txt");
+        Path resultFile = FileCreator.createResultFile(userFile.getParent(), uniqueFileName);
 
-        // Encrypt and process
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
-        Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::encrypt);
+        Processor processor = new FileProcessor(userFile, resultFile, caesarCipher::encrypt);
         processor.process();
     }
 
@@ -91,28 +81,23 @@ public class MenuController {
         );
         menus.execute();
 
-        // Choose language
         String language = languageSelectionMenu.getResult();
-
-        // Create according alphabet
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
-
-        // Get a file for encryption
         Path encryptedFile = getFileForEncryptionMenu.getResult();
 
-        // Get a key
-        int key = new Random().nextInt(1, alphabet.getLength());
-        System.out.println("Random key will be used: " + key);
+        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        String uniqueFileName = FileCreator.generateUniqueFileName("encryption_with_a_random_key_result", "txt");
+        Path resultFile = FileCreator.createResultFile(encryptedFile.getParent(), uniqueFileName);
+        int key = generateRandomKey(alphabet.getLength());
 
-        // Create result file
-        Path resultFile = FileCreator.createResultFile(
-                encryptedFile.getParent(),
-                FileCreator.generateUniqueFileName("encryption_with_a_random_key_result", "txt"));
-
-        // Encrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
         Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::encrypt);
         processor.process();
+    }
+
+    private static int generateRandomKey(int bound) {
+        int randomKey = new Random().nextInt(1, bound);
+        System.out.println("Random key will be used: " + randomKey);
+        return randomKey;
     }
 
     /**
@@ -129,24 +114,14 @@ public class MenuController {
         );
         menus.execute();
 
-        // Choose language
         String language = languageSelectionMenu.getResult();
-
-        // Create according alphabet
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
-
-        // Get an encrypted file
         Path encryptedFile = getFileForEncryptionMenu.getResult();
-
-        // Get a key
         int key = getIntKeyForDecryptionMenu.getResult();
 
-        // Create result file
-        Path resultFile = FileCreator.createResultFile(
-                encryptedFile.getParent(),
-                FileCreator.generateUniqueFileName("decryption_result", "txt"));
+        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        String uniqueFileName = FileCreator.generateUniqueFileName("decryption_result", "txt");
+        Path resultFile = FileCreator.createResultFile(encryptedFile.getParent(), uniqueFileName);
 
-        // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet, key);
         Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::decrypt);
         processor.process();
@@ -165,21 +140,13 @@ public class MenuController {
         );
         menus.execute();
 
-        // Choose language
         String language = languageSelectionMenu.getResult();
-
-        // Create according alphabet
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
-
-        // Get an encrypted file
         Path encryptedFile = getFileForEncryptionMenu.getResult();
 
-        // Create result file
-        Path resultFile = FileCreator.createResultFile(
-                encryptedFile.getParent(),
-                 FileCreator.generateUniqueFileName("decryption_with_brut_force_result", "txt"));
+        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        String uniqueFileName = FileCreator.generateUniqueFileName("decryption_with_brut_force_result", "txt");
+        Path resultFile = FileCreator.createResultFile(encryptedFile.getParent(), uniqueFileName);
 
-        // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet);
         Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::decryptWithBruteForce);
         processor.process();
@@ -198,21 +165,13 @@ public class MenuController {
         );
         menus.execute();
 
-        // Choose language
         String language = languageSelectionMenu.getResult();
-
-        // Create according alphabet
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
-
-        // Get an encrypted file
         Path encryptedFile = getFileForEncryptionMenu.getResult();
 
-        // Create result file
-        Path resultFile = FileCreator.createResultFile(
-                encryptedFile.getParent(),
-                FileCreator.generateUniqueFileName("decryption_with_frequency_analysis_result", "txt"));
+        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        String uniqueFileName = FileCreator.generateUniqueFileName("decryption_with_frequency_analysis_result", "txt");
+        Path resultFile = FileCreator.createResultFile(encryptedFile.getParent(), uniqueFileName);
 
-        // Decrypt
         CaesarCipher caesarCipher = new CaesarCipher(alphabet);
         Processor processor = new FileProcessor(encryptedFile, resultFile, caesarCipher::decryptWithFrequencyAnalysis);
         processor.process();
