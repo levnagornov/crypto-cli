@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.menu.MenuController;
-import org.example.util.Console;
+import org.example.controller.MenuController;
+import org.example.inputprovider.Console;
 
 /**
  * The Main class serves as the entry point of the program.

@@ -1,6 +1,6 @@
 package org.example.menu;
 
-import org.example.util.UserInputProvider;
+import org.example.inputprovider.UserInputProvider;
 import java.util.List;
 
 /**

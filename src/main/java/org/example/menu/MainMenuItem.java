@@ -1,6 +1,7 @@
 package org.example.menu;
 
-import org.example.util.UserInputProvider;
+import org.example.controller.MenuController;
+import org.example.inputprovider.UserInputProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

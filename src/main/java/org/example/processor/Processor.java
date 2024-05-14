@@ -1,4 +1,4 @@
-package org.example.util;
+package org.example.processor;
 
 /**
  * The Processor interface represents a template method for data processing.

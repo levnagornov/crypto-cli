@@ -1,11 +1,12 @@
-package org.example.menu;
+package org.example.controller;
 
 import org.example.alphabet.*;
 import org.example.cipher.CaesarCipher;
+import org.example.menu.*;
 import org.example.util.FileCreator;
-import org.example.util.FileProcessor;
-import org.example.util.Processor;
-import org.example.util.UserInputProvider;
+import org.example.processor.FileProcessor;
+import org.example.processor.Processor;
+import org.example.inputprovider.UserInputProvider;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;

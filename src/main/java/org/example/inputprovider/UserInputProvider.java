@@ -1,4 +1,4 @@
-package org.example.util;
+package org.example.inputprovider;
 
 import java.nio.file.Path;
 
