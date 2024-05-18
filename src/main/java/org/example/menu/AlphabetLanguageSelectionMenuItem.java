@@ -30,7 +30,6 @@ public class AlphabetLanguageSelectionMenuItem extends ResultableMenuItem<String
         int numberOfLanguages = languages.length;
         int choice;
 
-
         System.out.println("Choose the language of the encrypted file:");
 
         for (int i = 0; i < Language.values().length; i++) {
