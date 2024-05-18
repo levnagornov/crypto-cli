@@ -10,16 +10,16 @@
 
 This СLI app works with the Caesar cipher. This is one of the simplest and most famous encryption methods.
 
-Program functionality:
+🛠️ Program functionality:
 - Text encryption using a specific key
 - Text encryption using a random key
 - Decrypting text using a specific key
 - Decrypting text using brute force (searching through all options)
-- Decrypting text using statistical text analysis (to be done later)
+- (not yet implemented) Decrypting text using statistical text analysis
 
 So, the program opens a text file specified by the user and performs one of the above actions with it, then a new file with the result is created in the same directory.
 
-Other features:
+✨ Other features:
 - SOLID principles usage
 - Design patterns usage: Factory, Command, Template method, Singleton
 - Unit testing
