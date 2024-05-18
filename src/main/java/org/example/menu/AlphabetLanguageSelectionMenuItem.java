@@ -27,18 +27,17 @@ public class AlphabetLanguageSelectionMenuItem extends ResultableMenuItem<String
      */
     public void execute() {
         Language[] languages = Language.values();
-        int numberOfLanguages = languages.length;
         int choice;
 
         System.out.println("Choose the language of the encrypted file:");
 
-        for (int i = 0; i < Language.values().length; i++) {
+        for (int i = 0; i < languages.length; i++) {
             System.out.println(i + 1 + ". " + Language.values()[i]);
         }
 
         while (true) {
             choice = supplier.get() - 1;
-            if (choice >= numberOfLanguages || choice < 0) {
+            if (choice >= languages.length || choice < 0) {
                 System.out.println("Invalid choice. Please try again.");
                 continue;
             }
