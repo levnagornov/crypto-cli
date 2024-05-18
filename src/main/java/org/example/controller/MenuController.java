@@ -59,7 +59,7 @@ public class MenuController {
         Path userFile = getFileForEncryptionMenu.getResult();
         int key = getIntKeyForEncryptionMenu.getResult();
 
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        AlphabetDictionary alphabet = AlphabetFactory.getAlphabet(Language.valueOf(language));
         String uniqueFileName = FileCreator.generateUniqueFileName("encryption_result", "txt");
         Path resultFile = FileCreator.createResultFile(userFile.getParent(), uniqueFileName);
 
@@ -84,7 +84,7 @@ public class MenuController {
         String language = languageSelectionMenu.getResult();
         Path encryptedFile = getFileForEncryptionMenu.getResult();
 
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        AlphabetDictionary alphabet = AlphabetFactory.getAlphabet(Language.valueOf(language));
         String uniqueFileName = FileCreator.generateUniqueFileName("encryption_with_a_random_key_result", "txt");
         Path resultFile = FileCreator.createResultFile(encryptedFile.getParent(), uniqueFileName);
         int key = generateRandomKey(alphabet.getLength());
@@ -118,7 +118,7 @@ public class MenuController {
         Path encryptedFile = getFileForEncryptionMenu.getResult();
         int key = getIntKeyForDecryptionMenu.getResult();
 
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        AlphabetDictionary alphabet = AlphabetFactory.getAlphabet(Language.valueOf(language));
         String uniqueFileName = FileCreator.generateUniqueFileName("decryption_result", "txt");
         Path resultFile = FileCreator.createResultFile(encryptedFile.getParent(), uniqueFileName);
 
@@ -143,7 +143,7 @@ public class MenuController {
         String language = languageSelectionMenu.getResult();
         Path encryptedFile = getFileForEncryptionMenu.getResult();
 
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        AlphabetDictionary alphabet = AlphabetFactory.getAlphabet(Language.valueOf(language));
         String uniqueFileName = FileCreator.generateUniqueFileName("decryption_with_brut_force_result", "txt");
         Path resultFile = FileCreator.createResultFile(encryptedFile.getParent(), uniqueFileName);
 
@@ -168,7 +168,7 @@ public class MenuController {
         String language = languageSelectionMenu.getResult();
         Path encryptedFile = getFileForEncryptionMenu.getResult();
 
-        AlphabetDictionary alphabet = AlphabetManager.getAlphabet(language);
+        AlphabetDictionary alphabet = AlphabetFactory.getAlphabet(Language.valueOf(language));
         String uniqueFileName = FileCreator.generateUniqueFileName("decryption_with_frequency_analysis_result", "txt");
         Path resultFile = FileCreator.createResultFile(encryptedFile.getParent(), uniqueFileName);
 
